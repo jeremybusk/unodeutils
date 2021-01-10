@@ -1,4 +1,4 @@
-package hello
+package unodeutils 
 
 import "testing"
 
