@@ -23,10 +23,12 @@ import (
 )
 
 func main() {
-    a := unodeutils.Hello()
-    fmt.Printf("line1: %s\n", a)
-    b := unodeutils.GetIntranetIp()
-    fmt.Printf("line2: %s\n", b)
+    msg := unodeutils.Hello()
+    fmt.Printf("line1: %s\n", msg)
+    ipv4 := unodeutils.GetInternetIpv4()
+    fmt.Printf("line2: %s\n", ipv4)
+    ipaddrs := unodeutils.GetIntranetIpaddrs()
+    fmt.Printf("line2: %s\n", ipaddrs)
 }
 ```
 
