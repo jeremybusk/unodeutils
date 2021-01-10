@@ -52,10 +52,10 @@ func GetIntranetIpaddrs() (string) {
 
 
 func display(){
-    intranet_ipv4 := get_intranet_ip()
+    intranet_ipv4 := GetIntranetIpaddrs()
     fmt.Printf("intranet ipv4s: %s\n", intranet_ipv4)
     // internet_ipv4 := get_internet_ip()
-    var internet_ipv4 = get_internet_ip()
+    var internet_ipv4 = GetInternetIpv4()
     fmt.Printf("internet ipv4: %s\n", internet_ipv4)
 }
 
