@@ -1,4 +1,4 @@
-module jhello/hello
+module unodeutils/hello
 
 go 1.15
 
