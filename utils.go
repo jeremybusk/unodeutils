@@ -104,7 +104,7 @@ func TestDb() {
     defer conn.Close(context.Background())
 
     // var uuid string
-    uuid := genUUID()
+    uuid := GenUUID()
     // var alias = 'jtest'
     var alias = RandStringBytes(10) 
     err = conn.QueryRow(context.Background(), "insert into agents (uuid, alias) VALUES ($1, $2) returning uuid", &alias, &uuid).Scan(&uuid)
