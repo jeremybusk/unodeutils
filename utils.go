@@ -7,12 +7,30 @@ import (
     "io/ioutil"
     "net/http"
     "encoding/json"
+    "math/rand"
+    "time"
+    "github.com/google/uuid"
+    "github.com/jackc/pgx"
 )
 
 
 func remove_last_char(s string) string {
     r := []rune(s)
     return string(r[:len(r)-1])
+}
+
+
+func genUUID() string {
+    id := uuid.New()
+    // fmt.Printf("github.com/google/uuid:         %s\n", id.String())
+    // fmt.Printf("github.com/google/uuid:         %s\n", id.String())
+    return id.String()
+}
+
+
+func IsValidUUID(u string) bool {
+    _, err := uuid.Parse(u)
+    return err == nil
 }
 
 
@@ -62,4 +80,37 @@ func display(){
 
 func UtilHello() string {
     return "Hello, world."
+}
+
+
+func RandStringBytes(n int) string {
+    const letterBytes = "abcdefghijklmnopqrstuvwxyz"
+    rand.Seed(time.Now().UnixNano())
+    b := make([]byte, n)
+    for i := range b {
+        b[i] = letterBytes[rand.Intn(len(letterBytes))]
+    }
+    return string(b)
+}
+
+
+func TestDb() {
+    conn, err := pgx.Connect(context.Background(), os.Getenv("DATABASE_URL"))
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
+        os.Exit(1)
+    }
+    defer conn.Close(context.Background())
+
+    // var uuid string
+    uuid := genUUID()
+    // var alias = 'jtest'
+    var alias = RandStringBytes(10) 
+    err = conn.QueryRow(context.Background(), "insert into agents (uuid, alias) VALUES ($1, $2) returning uuid", &alias, &uuid).Scan(&resp)
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "QueryRow failed: %v\n", err)
+        os.Exit(1)
+    }
+
+    fmt.Println(resp)
 }
