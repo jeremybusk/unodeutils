@@ -50,6 +50,23 @@ func get_intranet_ip() (string) {
     return nipv4s
 }
 
+
+func GetIntranetIp() (string) {
+    addrs, err := net.InterfaceAddrs()
+    if err != nil {
+        os.Stderr.WriteString("ERROR: " + err.Error() + "\n")
+        os.Exit(1)
+    }
+    var ipv4s string
+    for _, a := range addrs {
+        if ipnet, ok := a.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
+            ipv4s = ipv4s + ipnet.IP.String() + "|"
+        }
+    }
+    nipv4s := remove_last_char(ipv4s)
+    return nipv4s
+}
+
 func display(){
     intranet_ipv4 := get_intranet_ip()
     fmt.Printf("intranet ipv4s: %s\n", intranet_ipv4)
