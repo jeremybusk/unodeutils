@@ -1,5 +1,14 @@
 package unodeutils
 
+import (
+    "fmt"
+    "net"
+    "os"
+    "io/ioutil"
+    "net/http"
+    "encoding/json"
+)
+
 
 func remove_last_char(s string) string {
     r := []rune(s)
