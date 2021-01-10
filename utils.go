@@ -21,7 +21,7 @@ func remove_last_char(s string) string {
 }
 
 
-func genUUID() string {
+func GenUUID() string {
     id := uuid.New()
     // fmt.Printf("github.com/google/uuid:         %s\n", id.String())
     // fmt.Printf("github.com/google/uuid:         %s\n", id.String())
