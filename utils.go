@@ -3,6 +3,7 @@ package unodeutils
 import (
     "fmt"
     "net"
+    "context"
     "os"
     "io/ioutil"
     "net/http"
@@ -106,11 +107,11 @@ func TestDb() {
     uuid := genUUID()
     // var alias = 'jtest'
     var alias = RandStringBytes(10) 
-    err = conn.QueryRow(context.Background(), "insert into agents (uuid, alias) VALUES ($1, $2) returning uuid", &alias, &uuid).Scan(&resp)
+    err = conn.QueryRow(context.Background(), "insert into agents (uuid, alias) VALUES ($1, $2) returning uuid", &alias, &uuid).Scan(&uuid)
     if err != nil {
         fmt.Fprintf(os.Stderr, "QueryRow failed: %v\n", err)
         os.Exit(1)
     }
 
-    fmt.Println(resp)
+    fmt.Println(uuid)
 }
