@@ -49,3 +49,11 @@ func get_intranet_ip() (string) {
     nipv4s := remove_last_char(ipv4s)
     return nipv4s
 }
+
+func display(){
+    intranet_ipv4 := get_intranet_ip()
+    fmt.Printf("intranet ipv4s: %s\n", intranet_ipv4)
+    // internet_ipv4 := get_internet_ip()
+    var internet_ipv4 = get_internet_ip()
+    fmt.Printf("internet ipv4: %s\n", internet_ipv4)
+}
